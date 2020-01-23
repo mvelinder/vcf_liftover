@@ -54,4 +54,4 @@ sys	0m5.803s
 - does *not* reheader the output VCF for `assembly=` or otherwise
 - does *not* change `chr` variant record prefixes between builds, ie removing `chr` for hg19, adding `chr` for hg38
 
-Post processing can address these issues
+Post processing can address these issues. Please add any issues you find to Issues!
