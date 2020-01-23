@@ -17,21 +17,21 @@ bash install.sh
 
 Works on uncompressed and compressed vcfs, simply change your (z)cat
 
-`
+```
 zcat $VCF | python ~/bin/vcf_liftover/lift_over.py --chain $CHAIN > $VCF.liftover.vcf 2>$VCF.liftover.vcf.err
-`
+```
 
 available `--chain` arguments are: `hg18ToHg19 hg18ToHg38 hg19ToHg38 hg38ToHg19`
 
 #### hg19ToHg38
-`
+```
 zcat $hg19VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg19ToHg38 > $hg19VCF.liftover.hg38.vcf 2>$hg19VCF.liftover.hg38.vcf.err
-`
+```
 
 #### hg38ToHg19
-`
+```
 zcat $hg38VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg38ToHg19 > $hg38VCF.liftover.hg19.vcf 2>$hg38VCF.liftover.hg19.vcf.err
-`
+```
 
 ### Error reporting
 
