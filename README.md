@@ -49,3 +49,9 @@ real	0m27.984s
 user	0m9.523s
 sys	0m5.803s
 ```
+
+#### Known issues
+- does *not* reheader the output VCF for `assembly=` or otherwise
+- does *not* change `chr` variant record prefixes between builds, ie removing `chr` for hg19, adding `chr` for hg38
+
+Post processing can address these issues
