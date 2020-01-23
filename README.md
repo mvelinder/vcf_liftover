@@ -1,29 +1,38 @@
-# lift-over-vcf
+# vcf_liftover
 
-UCSC liftOver (genome build converter) for vcf format
+Forked from [lift-over-vcf](https://github.com/knmkr/lift-over-vcf) with improvements including:
+- hg38ToHg19 support
+- stderr reporting of unmapped/failed coordinates
+- fix `--no-check-certificate` error on install
 
-
-## Usage example
-
-### E.g., Convert 1000 Genomes (build 37) to build 38:
-
-```
-$ cat ${vcf}| python lift-over.py --chain hg19ToHg38
-```
-
-| filename in test/data                                                                   | description                                                                                                 |
-|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| ALL.chr15.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf                 | [1000 Genomes data from FTP](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr15.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz) |
-| ALL.chr15.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.liftover_to_b38.vcf | + lift over from b38                                                                                        |
-
-### E.g., Convert HapMap (build 36) to build 37:
+## Install
 
 ```
-$ cat ${vcf}| python lift-over.py --chain hg18ToHg19
+git clone https://github.com/mvelinder/vcf_liftover.git
+cd vcf_liftover
+bash install.sh
 ```
 
-| filename in test/data                                          | description                                                                                                                          |
-|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| genotypes_chr12_JPT+CHB_r24_nr.b36_fwd.txt                     | [HapMap genotype data from FTP](http://hapmap.ncbi.nlm.nih.gov/downloads/genotypes/latest_phaseII_ncbi_b36/fwd_strand/non-redundant) |
-| genotypes_chr12_JPT+CHB_r24_nr.b36_fwd.txt.vcf                 | + convert to vcf                                                                                                                     |
-| genotypes_chr12_JPT+CHB_r24_nr.b36_fwd.txt.liftover_to_b37.vcf | + lift over from b37                                                                                                                 |
+## Usage
+
+Works on uncompressed and compressed vcfs, simply change your (z)cat
+
+`
+zcat $VCF | python ~/bin/vcf_liftover/lift_over.py --chain $CHAIN > $VCF.liftover.vcf 2>$VCF.liftover.vcf.err
+`
+
+available `--chain` arguments are: `hg18ToHg19 hg18ToHg38 hg19ToHg38 hg38ToHg19`
+
+#### hg19ToHg38
+`
+zcat $hg19VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg19ToHg38 > $hg19VCF.liftover.hg38.vcf 2>$hg19VCF.liftover.hg38.vcf.err
+`
+
+#### hg38ToHg19
+`
+zcat $hg38VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg38ToHg19 > $hg38VCF.liftover.hg19.vcf 2>$hg38VCF.liftover.hg19.vcf.err
+`
+
+### Error reporting
+
+Unmapped coordinates are reported in stderr, which above we're redirecting to our `.err` file. All unmapped records start with `#` and are in the following format `# mapping failed at chr1:181499`. Easily retrieve all failed records with something like `grep ^# $VCF.liftover.err` 
