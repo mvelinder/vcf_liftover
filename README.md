@@ -35,4 +35,17 @@ zcat $hg38VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg38ToHg19 > $hg3
 
 ### Error reporting
 
-Unmapped coordinates are reported in stderr, which above we're redirecting to our `.err` file. All unmapped records start with `#` and are in the following format `# mapping failed at chr1:181499`. Easily retrieve all failed records with something like `grep ^# $VCF.liftover.err` 
+Unmapped coordinates are reported in stderr, which above we're redirecting to our `.err` file. All unmapped records start with `#` and are in the following format `# mapping failed at chr1:181499`. Easily retrieve all failed records with something like `grep ^# $VCF.liftover.err
+
+### Testing and performance
+
+Platinum [genome](ftp://platgene_ro@ussd-ftp.illumina.com/2017-1.0/) VCFs containing 1000 variants on chr21 are available for testing in `test/`
+
+Expect performance along the lines of 36 variants per second:
+```
+$ time zcat NA12878.hg19.test.vcf.gz | python ~/bin/vcf_liftover/lift_over.py --chain hg19ToHg38 > NA12878.hg19.test.vcf.gz.hg38.vcf 2>NA12878.hg19.test.vcf.gz.hg38.vcf.err
+
+real	0m27.984s
+user	0m9.523s
+sys	0m5.803s
+```
