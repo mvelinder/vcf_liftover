@@ -39,7 +39,7 @@ Unmapped coordinates are reported in stderr, which above we're redirecting to ou
 
 ### Testing and performance
 
-Platinum [genome](ftp://platgene_ro@ussd-ftp.illumina.com/2017-1.0/) VCFs containing 1000 variants on chr21 are available for testing in `test/`
+Platinum [genome](ftp://platgene_ro@ussd-ftp.illumina.com/2017-1.0/) VCFs containing 1000 variants on chr21 are available for testing in `./test`
 
 Expect performance along the lines of 36 variants per second:
 ```
