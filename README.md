@@ -35,7 +35,7 @@ zcat $hg38VCF | python ~/bin/vcf_liftover/lift_over.py --chain hg38ToHg19 > $hg3
 
 ### Error reporting
 
-Unmapped coordinates are reported in stderr, which above we're redirecting to our `.err` file. All unmapped records start with `#` and are in the following format `# mapping failed at chr1:181499`. Easily retrieve all failed records with something like `grep ^# $VCF.liftover.err
+Unmapped coordinates are reported in stderr, which above we're redirecting to our `.err` file. All unmapped records start with `#` and are in the following format `# mapping failed at chr1:181499`. Easily retrieve all failed records with something like `grep ^# $VCF.liftover.err`
 
 ### Testing and performance
 
